@@ -1,0 +1,105 @@
+<html lang='en'> 
+  <%- include('head') %>
+  
+  <body> 
+    <%- include('navbar') %>
+    <div class='col-11 col-sm-9 col-md-7 mx-auto'>  
+      <% if(typeof userId !== 'undefined') { %>
+        <form action='/post' method='POST' class='p-4 my-3'>
+          <div class='form-group'>
+            <label>Title</label>
+            <input type='text' required class='form-control title' name='title' placeholder='Title'>
+          </div>
+          <div class='text-right'>
+            <button type='submit' class='btn btn-primary'>Submit</button>
+          </div>
+        </form> 
+        <%} else { %>
+          <div class='my-3 position-relative post p-3'> 
+            <div>
+              You need to
+              <a class='link-primary' href='/'> register </a>
+              to write a post
+            </div>  
+          </div>  
+      <% } %>
+
+      <% if(typeof error !== 'undefined' && error.length > 0) { %>
+        <div class='alert col-md-4 mx-auto' role='alert'>
+          <div class='mx-auto'><%= error %></div>
+        </div>
+      <% } %>
+      
+      <div class='dropdown'>
+        <button class='dropbtn'>Filter posts</button>
+        <div class='dropdown-content'>
+          <a href='/post/date?date=hour'>Last hour</a><hr>
+          <a href='/post/date?date=day'>Today</a><hr>
+          <a href='/post/date?date=week'>This week</a><hr>
+          <a href='/post/date?date=months'>This month</a><hr>
+          <a href='/post/date?date=year'>This year</a>
+        </div>
+      </div>
+
+      <div class='target-post target-comment mt-3'>
+        <% if(typeof posts || data !== 'undefined' && posts.length > 0 ) { %>
+          <% [...posts].reverse().forEach(post => { %>  
+
+            <div class='mb-3 position-relative post p-3 '>
+              <div><strong><%= post.user.nickname %></strong></div>
+              <div><%= post.title %></div>
+
+              <a class='edit' href='post/<%=post._id %>'>
+                <i class='bi-pencil-fill'></i>
+              </a> 
+              <div class='d-flex justify-content-between'> 
+                <p class='text-muted'><%= data(post.createdAt).fromNow() %></p>
+                <i class='bi-trash-fill' data-doc=<%= post._id %>></i>   
+              </div>
+              <form action='/comment' method='POST' class='w-10 mx-auto my-3'>
+                <input type='text' name='postId' class='d-none' value=<%= post._id %>>
+                <div class='form-group'>
+                  <input type='text' required class='form-control' name='text' placeholder='Comment'>
+                </div>
+                <div class='text-right'>
+                  <button type='submit' class='btn btn-primary text-right'>Submit</button>
+                </div>
+              </form> 
+              <div class='d-flex'>    
+                <% if(post.comments.length > 1) { %>           
+                  <div class='dropdown mr-3'>
+                    <button class='dropbtn'>Filter By Date</button>
+                    <div class='dropdown-content'>
+                      <a href='/post'>The most recent</a><hr color='gray'>
+                      <a href='/post/comments/date'>The oldest</a>
+                    </div>  
+                  </div> 
+                <% } %>
+                <input type='text' class='form-control w-25' id='inputCity' name='city' placeholder="Filter By User's City">
+              </div>
+
+              <% [...post.comments].reverse().forEach(comment => { %>   
+                <div class='mx-auto p-3 mt-3 position-relative comment'>
+                  <div><strong><%=comment.user.nickname %></strong></div> 
+                  <div><%=comment.text %></div> 
+                  <div class='edit'>
+                    <a class='mr-3' href='comment/<%=comment._id %>'>
+                      <i class='bi bi-pencil-fill'></i> 
+                    </a>        
+                    <i class='prova bi bi-trash-fill' data-doc=<%= comment._id %>></i>
+                  </div>
+                  <div class='d-flex justify-content-between align-items-end mt-3'>   
+                    <div class='text-muted'>from <%=comment.user.city %></div> 
+                    <div class='text-muted'><%= data(comment.createdAt).fromNow() %></div>
+                  </div>
+                </div>  
+              <% }) %>
+            </div>
+          <% }) %>
+        <% } %>
+      </div>
+    </div>
+    <script src='../../assets/js/post.js'></script>
+    <script src='../../assets/js/comment.js'></script>
+  </body>
+</html>

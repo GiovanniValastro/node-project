@@ -1,0 +1,84 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;500;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+  border-radius: 5px;
+}
+
+body {
+  background-color: #008AD8 !important;
+}
+
+button:focus {
+  outline:0 !important; 
+}
+
+form, .post, nav, table {
+  background-color: white;
+}
+
+.dropbtn, .comment, input {
+  background-color: lightgray !important;  
+  box-shadow: 0px 6px 6px 0px rgba(0,0,0,0.1);
+}
+
+input {
+  border: 1px solid gray !important;
+}
+
+.edit {
+  position: absolute !important;
+  top: 20px; 
+  right: 18px;
+}
+
+.alert {
+  background-color: #9b1b1b;
+}
+
+.button {
+  border: none;
+}
+
+.bi-trash-fill, .bi-pencil-fill {
+  cursor: pointer;
+  color: black;
+}
+
+.dropbtn {
+  padding: 6px;
+  font-size: 17px;
+  border-radius: 5px;
+  background-color: #aaaaaa !important;
+  border: 1px solid gray;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  width: 160px;
+  position: absolute;  
+  background-color: #aaaaaa !important;
+  z-index: 1;
+  border: 1px solid gray;
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+
+.dropdown-content a { 
+  padding: 0 13px;
+  text-decoration: none;
+  display: block;  
+  color: black !important;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}

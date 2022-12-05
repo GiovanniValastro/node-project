@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang='en'>
+  <%- include('../head') %>
+  <body>
+    <%- include('../navbar') %>
+    <table class='table col-10 mx-auto my-5'>
+      <thead>
+        <tr>
+          <th scope='col'>#</th>
+          <th scope='col'>Nickname</th>
+          <th scope='col'>Age</th>
+          <th scope='col'>City</th>
+        </tr>
+      </thead>
+      <tbody class='tbody'>
+        <% if(typeof users !== 'undefined' && users.length > 0 ) { %>
+          <% users.forEach((user, index) => { %>        
+            <tr>
+              <th scope='row'><%= index %></th>
+              <td><%= user.nickname %></td>
+              <td><%= user.age %></td>
+              <td><%= user.city %></td>
+              <td>
+                <a href='user/<%=user._id %>' class='mx-4'>
+                  <i class='bi bi-pencil-fill'></i>
+                </a>
+                <i class='bi bi-trash-fill' data-doc=<%= user._id %>></i>
+              </td>
+            </tr>
+          <% }) %>
+        <% } %>
+      </tbody>
+    </table>
+    <script src='../../assets/js/user.js'></script>
+  </body>
+</html>
